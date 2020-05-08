@@ -2,10 +2,12 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-class ChatServer implements Runnable{ 
+class Server implements Runnable{ 
 	
 	private Socket clientSocket = null;
-
+	// Vector to store active clients 
+    	static Vector<User> userList = new Vector<>();
+	
 	public static void main(String args[]) throws Exception { 
 		
 		ServerSocket myServer = new ServerSocket(8080);
@@ -17,12 +19,12 @@ class ChatServer implements Runnable{
 			System.out.println("Listening for connections on port 8080...\n");
 			
 			//create and start a thread
-			Thread cThread = new Thread(new ChatServer(cSocket)); 
+			Thread cThread = new Thread(new Server(cSocket)); 
 			cThread.start(); 		
 		}			
     }
 	
-	public ChatServer (Socket csocket){
+	public Server (Socket csocket){
 		this.clientSocket = csocket;
 	}
 	
